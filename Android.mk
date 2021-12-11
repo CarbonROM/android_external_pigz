@@ -39,7 +39,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) external/zlib external/pigz/zopfli/src/zopfli
 LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT_OPTIONAL_EXECUTABLES)
 LOCAL_PRODUCT_MODULE := true
 PIGZ_TOOLS := unpigz gzip gunzip zcat
-LOCAL_POST_INSTALL_CMD := $(hide) $(foreach t,$(PIGZ_TOOLS),ln -sf pigz $(TARGET_OUT)/xbin/$(t);)
+LOCAL_POST_INSTALL_CMD := $(foreach t,$(PIGZ_TOOLS),mkdir -p $(TARGET_OUT)/xbin && ln -sf pigz $(TARGET_OUT)/xbin/$(t);)
 LOCAL_CFLAGS := $(pigz_cflags)
 
 include $(BUILD_EXECUTABLE)
