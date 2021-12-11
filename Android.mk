@@ -18,6 +18,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(zopfli_src_files)
 LOCAL_C_INCLUDES := $(LOCAL_PATH) external/zlib external/pigz/zopfli/src/zopfli
 LOCAL_CFLAGS := $(pigz_cflags)
+LOCAL_PRODUCT_MODULE := true
 include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -35,10 +36,10 @@ LOCAL_SRC_FILES := $(pigz_src_files)
 LOCAL_STATIC_LIBRARIES := libzopfli_static
 LOCAL_SHARED_LIBRARIES := libz
 LOCAL_C_INCLUDES := $(LOCAL_PATH) external/zlib external/pigz/zopfli/src/zopfli
-LOCAL_MODULE_PATH := $(TARGET_OUT_SYSTEM_EXT_OPTIONAL_EXECUTABLES)
-LOCAL_SYSTEM_EXT_MODULE := true
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT_OPTIONAL_EXECUTABLES)
+LOCAL_PRODUCT_MODULE := true
 PIGZ_TOOLS := unpigz gzip gunzip zcat
-LOCAL_POST_INSTALL_CMD := $(hide) $(foreach t,$(PIGZ_TOOLS),ln -sf pigz $(TARGET_OUT)/xbin/$(t);)
+LOCAL_POST_INSTALL_CMD := $(foreach t,$(PIGZ_TOOLS),mkdir -p $(TARGET_OUT)/xbin && ln -sf pigz $(TARGET_OUT)/xbin/$(t);)
 LOCAL_CFLAGS := $(pigz_cflags)
 
 include $(BUILD_EXECUTABLE)
